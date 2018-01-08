@@ -1,0 +1,20 @@
+version: '2'
+services:
+
+  haproxy: 
+    image: haproxy:1.7
+    network_mode: host
+    volumes:
+    - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    - ./haproxy/general_whitelist.lst:/usr/local/etc/haproxy/general_whitelist.lst
+    - ./haproxy/site1_whitelist.lst:/usr/local/etc/haproxy/site1_whitelist.lst
+    - ./haproxy/site2_whitelist.lst:/usr/local/etc/haproxy/site2_whitelist.lst
+
+  nginx: 
+    image: nginx:1.13
+    network_mode: host
+    volumes:
+    - ./nginx/default:/usr/share/nginx/html/default:ro
+    - ./nginx/site1:/usr/share/nginx/html/site1:ro
+    - ./nginx/site2:/usr/share/nginx/html/site2:ro
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
